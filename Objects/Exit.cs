@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Exit
@@ -11,4 +13,14 @@ public class Exit
         this.destination = destination;
     }
 
+    public string getDirection()
+    {
+        return this.direction;
+    }
+
+    public Room getDestination()
+    {
+        return this.destination;
+
+    }
 }
