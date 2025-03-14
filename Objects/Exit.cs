@@ -5,7 +5,7 @@ using UnityEngine;
 public class Exit
 {
     private string direction;
-    Room destination;
+    private Room destination;
 
     public Exit(string direction, Room destination)
     {
@@ -21,6 +21,5 @@ public class Exit
     public Room getDestination()
     {
         return this.destination;
-
     }
 }
