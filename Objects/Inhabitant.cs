@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Inhabitant
 {
@@ -22,7 +23,12 @@ public abstract class Inhabitant
     }
     public int getCurrHP()
     {
+        if (this.currHp < 0)
+        {
+            this.currHp = 0;
+        }
         return this.currHp;
+        
     }
     public int getAC()
     {
