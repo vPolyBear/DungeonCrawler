@@ -23,14 +23,30 @@ public class fightSceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(theFight.fightIsOver) return;
+
+
+        if (theFight.fightIsOver) return;
 
         timer += Time.deltaTime;
         if (timer >= 2f)
         {
-            theFight.doAttack(player, monster);
-            timer = 0f; ;
+            theFight.doAttack(player, monster, false);
+            timer = 0f;
         }
+        
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            theFight.Heal();
+            
+        }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            theFight.doAttack(player,monster,true);
+
+        }
+
         theFight.HealthBar();
 
     }

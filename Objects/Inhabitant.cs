@@ -30,6 +30,14 @@ public abstract class Inhabitant
         return this.currHp;
         
     }
+
+    public int getMaxHp()
+    {
+        
+        return this.maxHp;
+
+    }
+
     public int getAC()
     {
         return this.ac;
@@ -44,6 +52,9 @@ public abstract class Inhabitant
         return this.currHp <= 0;
     }
 
-    
+    public void setCurrHp(int hp)
+    {
+        this.currHp = hp;
+    }
 
 }

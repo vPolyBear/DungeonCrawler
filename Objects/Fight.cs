@@ -1,4 +1,5 @@
 using System;
+using System.Transactions;
 using TMPro;
 using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
@@ -11,6 +12,7 @@ public class Fight
     public TextMeshProUGUI playerHealthText;
     public TextMeshProUGUI monsterHealthText;
     public bool fightIsOver = false;
+
 
 
     public Fight(TextMeshProUGUI playerHealthText, TextMeshProUGUI monsterHealthText)
@@ -40,16 +42,30 @@ public class Fight
         
     }
 
-    public void doAttack(GameObject playerGameObject, GameObject monsterGameObject)
+    public void doAttack(GameObject playerGameObject, GameObject monsterGameObject, bool isPowerAttack)
     {
         
         if (fightIsOver) return;
 
 
         int mayAttack = UnityEngine.Random.Range(10, 20);
+
+        if (isPowerAttack && attacker is Player)
+        {
+            mayAttack = (int)(mayAttack * 0.75);
+            Debug.Log($"{attacker.getName()} did a Power Attack! Attack roll was reduced by 25%!!!");
+        }
+
         if (mayAttack >= defender.getAC())
         {
             int damage = UnityEngine.Random.Range(5, 15);
+
+            if(isPowerAttack && attacker is Player)
+            {
+                damage = (int)(damage * 1.5);
+                Debug.Log($"{attacker.getName()} did a Power Attack! So they attacked the 50% harder!!");
+            }
+
             defender.takeDamage(damage);
 
 
@@ -99,5 +115,22 @@ public class Fight
         monsterHealthText.text = $"Monster Health Bar: {Core.theMonster.getCurrHP()}";
         
     }
+
+    public void Heal()
+    {
+        
+        double amountHealed = Core.thePlayer.getMaxHp() * .25;
+        double newHealth = Core.thePlayer.getCurrHP() + amountHealed;
+
+        if(newHealth <= Core.thePlayer.getMaxHp())
+        {
+            Core.thePlayer.setCurrHp((int)newHealth);
+        }
+        
+        Debug.Log($"Player healed for {amountHealed}, new HP: {Core.thePlayer.getCurrHP()}");
+       
+    }
+
+    
 
 }
